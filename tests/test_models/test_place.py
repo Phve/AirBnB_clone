@@ -114,19 +114,19 @@ class ModifiedTestPlaceInstantiation(unittest.TestCase):
         sleep(0.05)
         pl2 = Place()
         self.assertLess(pl1.updated_at, pl2.updated_at)
-
+    
     def test_modified_string_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
         pl = Place()
         pl.id = "123456"
         pl.created_at = pl.updated_at = dt
-        pl_str = pl.__str__()
+        pl_str = str(pl)  
         self.assertIn("[Place] (123456)", pl_str)
         self.assertIn("'id': '123456'", pl_str)
         self.assertIn("'created_at': " + dt_repr, pl_str)
         self.assertIn("'updated_at': " + dt_repr, pl_str)
-
+    
     def test_unused_args_for_places(self):
         pl = Place(None)
         self.assertNotIn(None, pl.__dict__.values())
@@ -148,13 +148,13 @@ class ModifiedTestPlaceSave(unittest.TestCase):
     """Custom tests for testing the save method of the Place class."""
 
     @classmethod
-    def setUpModified(cls):
+    def setUpClass(cls):  
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    def tearDownModified(self):
+    def tearDown(self): 
         try:
             os.remove("file.json")
         except IOError:
@@ -163,6 +163,7 @@ class ModifiedTestPlaceSave(unittest.TestCase):
             os.rename("tmp", "file.json")
         except IOError:
             pass
+
 
     def test_single_save_for_places(self):
         pl = Place()
@@ -194,7 +195,6 @@ class ModifiedTestPlaceSave(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn(pl_id, f.read())
 
-
 class ModifiedTestPlaceToDict(unittest.TestCase):
     """Custom tests for testing the to_dict method of the Place class."""
 
@@ -206,4 +206,3 @@ class ModifiedTestPlaceToDict(unittest.TestCase):
         self.assertIn("id", pl.to_dict())
         self.assertIn("created_at", pl.to_dict())
         self.assertIn("updated_at", pl.to_dict())
-

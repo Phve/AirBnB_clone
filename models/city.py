@@ -13,6 +13,7 @@ class City(BaseModel):
             **kwargs: Keyword arguments for attributes.
         """
         super().__init__(*args, **kwargs)
+        self.state_id = ""  # Make sure to initialize state_id attribute
 
     def __str__(self):
         """Return a string representation of the City instance."""

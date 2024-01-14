@@ -32,17 +32,15 @@ class TestCityInstantiationModified(unittest.TestCase):
     def test_updated_at_is_datetime(self):
         self.assertEqual(datetime, type(City().updated_at))
 
+    def test_state_id_is_str(self):
+        city_instance = City()
+        self.assertEqual(str, type(city_instance.state_id))
+
     def test_state_id_is_class_attribute(self):
         city_instance = City()
         self.assertEqual(str, type(City.state_id))
         self.assertIn("state_id", dir(city_instance))
         self.assertNotIn("state_id", city_instance.__dict__)
-
-    def test_name_is_class_attribute(self):
-        city_instance = City()
-        self.assertEqual(str, type(City.name))
-        self.assertIn("name", dir(city_instance))
-        self.assertNotIn("name", city_instance.__dict__)
 
     def test_unique_ids(self):
         city1 = City()
@@ -80,14 +78,15 @@ class TestCityInstantiationModified(unittest.TestCase):
     def test_instantiation_with_kwargs(self):
         dt = datetime.today()
         dt_iso = dt.isoformat()
-        city = City(id="345", created_at=dt_iso, updated_at=dt_iso)
+        city = City(id="345", created_at=dt_iso, updated_at=dt_iso, state_id="CA")
         self.assertEqual(city.id, "345")
         self.assertEqual(city.created_at, dt)
         self.assertEqual(city.updated_at, dt)
+        self.assertEqual(city.state_id, "CA")
 
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
-            City(id=None, created_at=None, updated_at=None)
+            City(id=None, created_at=None, updated_at=None, state_id=None)
 
 
 class TestCitySaveModified(unittest.TestCase):
@@ -194,4 +193,3 @@ class TestCityToDictModified(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

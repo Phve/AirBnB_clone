@@ -3,7 +3,7 @@
 
 import uuid
 from datetime import datetime
-import data_storage  # Importing the storage module with a new name
+from models import storage as data_storage
 
 class UniqueModel:
     """This class serves as the foundation for all other classes in our unique project"""
@@ -15,7 +15,7 @@ class UniqueModel:
             - *args: Additional arguments (not a must)
             - **kwargs: Keyword arguments in a dictionary form (not a must)
         """
-        unique_storage = data_storage  # Renaming the storage module for a unique touch
+        unique_storage = data_storage.UniqueStorage()
         if kwargs and len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
@@ -26,7 +26,7 @@ class UniqueModel:
             self.unique_id = str(uuid.uuid4())  # A unique twist to the variable name
             self.creation_time = datetime.now()  # Renaming for uniqueness
             self.last_updated = datetime.now()  # Renaming for uniqueness
-            unique_storage.new_instance(self)  # A unique function name for saving instances
+            unique_storage.new(self)
 
     def __str__(self):
         """Return a distinct string representation for our unique project"""
@@ -35,7 +35,7 @@ class UniqueModel:
     def save_instance(self):
         """Update the public instance attribute last_updated uniquely"""
         self.last_updated = datetime.now()
-        data_storage.save()  # A unique function name for saving data
+        unique_storage.save()
 
     def to_unique_dict(self):
         """Return a dictionary containing all keys/values of __dict__ with a unique twist"""

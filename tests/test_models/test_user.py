@@ -16,6 +16,25 @@ from models.user import User
 
 class CustomUserInstantiationTest(unittest.TestCase):
     """Custom tests for instantiating the User class."""
+    
+    def setUp(self):
+        try:
+            os.rename("custom_data.json", "backup_custom_data")
+        except FileNotFoundError:
+            pass
+
+    def tearDown(self):
+        try:
+            os.remove("custom_data.json")
+        except FileNotFoundError:
+            pass
+        try:
+            os.rename("backup_custom_data", "custom_data.json")
+        except FileNotFoundError:
+            pass
+
+    def test_custom_creation_without_args(self):
+        self.assertEqual(User, type(User()))
 
     def test_custom_creation_without_args(self):
         self.assertEqual(User, type(User()))
@@ -145,14 +164,12 @@ class CustomUserSaveTest(unittest.TestCase):
 class CustomUserToDictTest(unittest.TestCase):
     """Custom tests for the to_dict method of the User class."""
 
-    # Customize tests as needed
-
     def test_custom_to_dict_with_argument(self):
         user_instance = User()
         with self.assertRaises(TypeError):
             user_instance.to_dict(None)
 
 
+
 if __name__ == "__main__":
     unittest.main()
-
