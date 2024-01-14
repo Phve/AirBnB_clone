@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+"""This script defines the HBNB console."""
+
 import cmd
 import re
-from shlex import split
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -14,6 +14,7 @@ from models.review import Review
 
 
 def parse(arg):
+    """Parse the command-line arguments."""
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
     if curly_braces is None:
@@ -32,11 +33,7 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines the HolbertonBnB command interpreter.
-
-    Attributes:
-        prompt (str): The command prompt.
-    """
+    """Class for the HBNB command interpreter."""
 
     prompt = "(hbnb) "
     __classes = {
