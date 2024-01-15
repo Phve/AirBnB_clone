@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This script defines a compact City class."""
 
-from models.base_model import BaseModel
+from .base_model import BaseModel
 
 class City(BaseModel):
     """Represent a city with state_id and name."""

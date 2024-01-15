@@ -3,7 +3,7 @@
 
 import uuid
 from datetime import datetime
-from models import storage as data_storage
+from . import storage as data_storage
 
 class UniqueModel:
     """This class serves as the foundation for all other classes in our unique project"""
