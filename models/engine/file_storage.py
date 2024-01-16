@@ -42,8 +42,12 @@ class FileStorage:
             with open(FileStorage.__file_path) as f:
                 objdict = json.load(f)
                 for o in objdict.values():
-                    cls_name = o["__class__"]
-                    del o["__class__"]
-                    self.new(eval(cls_name)(**o))
+                    cls_name = o.get("__class__")
+                    if cls_name and isinstance(cls_name, str):
+                        del o["__class__"]
+                        self.new(eval(cls_name)(**o))
         except FileNotFoundError:
             return
+        except Exception as e:
+            print(f"Error during reload: {e}")
+

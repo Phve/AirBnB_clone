@@ -181,7 +181,6 @@ def default(self, arguments):
         "destroy": self.destroy,
         "update": self.update
     }
-
     match = re.search(r"\.", arguments)
     if match is not None:
         arg_list = [arguments[:match.span()[0]], arguments[match.span()[1]:]]
@@ -191,11 +190,10 @@ def default(self, arguments):
             if command[0] in arg_dict.keys():
                 call = "{} {}".format(arg_list[0], command[1])
                 return arg_dict[command[0]](call)
+            print("*** Unknown syntax: {}".format(arguments))
+            return False
 
-    print("*** Unknown syntax: {}".format(arguments))
-    return False
-
-
+        
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
 
